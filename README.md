@@ -200,10 +200,13 @@ Approximate total time spent on the exercise: 4-5 hours including setup.
 
 Include any learning or research time if applicable.
 
-Previous learning (back in December): 
+Previous learning: 
   -LinkedIn Learning
     -Apache Airflow training
 
+Useful sources:
+  Setting up Visual Studio Code to use as editor with WSL: https://learn.microsoft.com/en-us/windows/wsl/tutorials/wsl-vscode
+  
 ---
 
 ### Assumptions
@@ -251,7 +254,8 @@ Implement multiprocessing of cities by divinding the cities pool. This would ben
 
 Provide any notes or guidance that would help someone reviewing or running your solution.
 
----
+API Key:
+  API key is retrieved from Airflow variables. As an alternative the key can be set in the config file but this way the key is not stored in version control.
 
 Thank you for taking the time to complete this exercise.
 We look forward to discussing your approach and design decisions.

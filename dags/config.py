@@ -48,7 +48,7 @@ OPENWEATHER_API_KEY = Variable.get("OPENWEATHER_API_KEY", "API_KEY")
 
 OPENWEATHER_BASE_URL = "https://api.openweathermap.org/data/2.5/weather"
 
-POSTGRES_CONN_ID = "postgres_default"
+POSTGRES_CONN_ID = "postgres_conn"
 
 # Helper function that returns a full URL for the OpenWeather API
 def build_weather_url(lat: float, lon: float, units: str = "", lang: str = "") -> str:

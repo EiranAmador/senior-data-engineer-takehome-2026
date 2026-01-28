@@ -54,31 +54,29 @@ with DAG(
             "provider_city_id": data.get("id"),
             "name": data.get("name"),
             "country": sys_info.get("country"),
-            "coord": {
-                "lat": data["coord"].get("lat"),
-                "lon": data["coord"].get("lon"),
-            },
+            
+            "coord_lat": data["coord"].get("lat"),
+            "coord_lon": data["coord"].get("lon"),
+
             "observation_time_utc": timestamp_utc,
             "timezone_offset_seconds": data.get("timezone"), 
-            "weather": {
-                "id": weather.get("id"),
-                "group": weather.get("main"),         
-                "description": weather.get("description"),
-                "icon": weather.get("icon"),
-            },
-            "main": {
-                "temp": data["main"].get("temp"),
-                "feels_like": data["main"].get("feels_like"),
-                "temp_min": data["main"].get("temp_min"),
-                "temp_max": data["main"].get("temp_max"),
-                "pressure_hpa": data["main"].get("pressure"),
-                "humidity_pct": data["main"].get("humidity"),
-            },
-            "wind": {
-                "speed": wind.get("speed"),
-                "deg": wind.get("deg"),
-                "gust": wind.get("gust"),
-            },
+
+            "weather_id": weather.get("id"),
+            "weather_group": weather.get("main"),         
+            "weather_description": weather.get("description"),
+            "weather_icon": weather.get("icon"),
+
+            "temp": data["main"].get("temp"),
+            "feels_like": data["main"].get("feels_like"),
+            "temp_min": data["main"].get("temp_min"),
+            "temp_max": data["main"].get("temp_max"),
+            "pressure_hpa": data["main"].get("pressure"),
+            "humidity_pct": data["main"].get("humidity"),
+                
+            "wind_speed": wind.get("speed"),
+            "wind_deg": wind.get("deg"),
+            "wind_gust": wind.get("gust"),
+                
             "cloudiness_pct": clouds.get("all"),
             "precip_mm_last_1h": (
                 rain.get("1h")
@@ -113,7 +111,7 @@ with DAG(
                 raise ValueError(f"Missing expected key {k} in API response. Request: {url}. Response: {data}")
         
         normalized = normalize_openweather_data(data)
-        normalized["raw_json"] = data
+        normalized["raw_json"] = json.dumps(data)
         return normalized
 
     def fetch_weather_data_by_cities(): 
@@ -175,11 +173,8 @@ with DAG(
             sunrise_time_utc         TIMESTAMPTZ,
             sunset_time_utc          TIMESTAMPTZ,
 
-            raw_json                 JSONB NOT NULL,
-            ingested_at              TIMESTAMPTZ NOT NULL DEFAULT now(),
-
-            -- Avoid duplicates for the same city & observation timestamp
-            CONSTRAINT uq_city_observation UNIQUE (provider_city_id, observation_time_utc)
+            raw_json                 TEXT NOT NULL,
+            ingested_at              TIMESTAMPTZ NOT NULL DEFAULT now()
         );
         """,
     )
@@ -212,8 +207,7 @@ with DAG(
                 %(cloudiness_pct)s, %(precip_mm_last_1h)s, %(precip_mm_last_3h)s,
                 %(sunrise_time_utc)s, %(sunset_time_utc)s,
                 %(raw_json)s
-            )
-            ON CONFLICT ON CONSTRAINT uq_city_observation DO NOTHING;
+            );
         """
         for payload in rows:
             hook.run(insert_sql, parameters=payload)
