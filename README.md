@@ -203,11 +203,14 @@ API key took some time to be enabled. This time was not taken into account.
 Include any learning or research time if applicable.
 
 Previous learning: 
-  -LinkedIn Learning
-    -Apache Airflow training
+  
+  - LinkedIn Learning:
+    - Apache Airflow training
 
 Useful sources:
+  
   Setting up Visual Studio Code to use as editor with WSL: https://learn.microsoft.com/en-us/windows/wsl/tutorials/wsl-vscode
+  
   PostgreSQL composite primary key for idempotency: (https://www.dbpilot.io/sql-guides/postgresql/composite-primary-keys-in-postgresql)
 
 ---
@@ -222,20 +225,20 @@ UTC time normalization was used to account for differences as this is used for t
 
 Describe key decisions you made and alternatives you considered.
 
-Multiprocessing:
+- Multiprocessing:
 Despite the CeleryExecutor being configured not a lot of multiprocessing was used on this first iteration of the project. Depending on requirements this feature could prove to be useful, for example, in the case of a large amount of cities being consumed they could be divided into different pools and processed separately on the fetcher. For a small amount like on this example this probably would not provide a big improvement on performance and the logic would be more complicated with not much benefit.
 Pros: Simplicity
 Cons: Scalability depending on use case
 
-Normalization:
+- Normalization:
 In the raw table the data was already normalized for ease of consumption at this layer but the raw json is still being stored and available both for help in debugging (comparing json to the stored columns) and as a way of keeping track of orignal data retrieved from API and in the possibility of a format change this would mean the data is not lost but would need to be reprocessed accordingly. 
 Pros: Eases the process of querying the raw data layer.
 Cons: More storage per row, normalization processing takes some performance.
 
-Validation:
+- Validation:
 In the case that an error is encountered in the process, the run has been set to stop, specifically focusing on the validation of certain keys this could mean that if the API response changes and this keys are no longer provided the program would stop processing. Another approach could be to notify of missing keys but continue saving the other information available, specially the raw json response received.
 
-Available API Parameters: 
+- Available API Parameters: 
 Required:
   -lat
   -lon
@@ -252,15 +255,15 @@ Optional:
 
 What would you implement next with more time?
 
-Implement multiprocessing of cities by divinding the cities pool. This would benefit in the case of a large number of cities being analyzed.
+- Implement multiprocessing of cities by divinding the cities pool. This would benefit in the case of a large number of cities being analyzed.
 
-Add some uniqueness constraints in the raw data table.
+- Add some uniqueness constraints in the raw data table.
 
-Adding more metadadata to the tables like a version control.
+- Adding more metadadata to the tables like a version control.
 
-Quality checks or flags to clearly improbable data.
+- Quality checks or flags to clearly improbable data.
 
-Unit testing, specially for the normalization logic since this is a key part to the integrity of the data being submitted to the tables.
+- Unit testing, specially for the normalization logic since this is a key part to the integrity of the data being submitted to the tables.
 
 ---
 
@@ -268,10 +271,10 @@ Unit testing, specially for the normalization logic since this is a key part to 
 
 Provide any notes or guidance that would help someone reviewing or running your solution.
 
-API Key:
+- API Key:
   API key is retrieved from Airflow variables. As an alternative the key can be set in the config file but this way the key is not stored in version control.
 
-Postgres Connection:
+- Postgres Connection:
   The connection must me setup in the Admin settings. Port: 5432, Host: postgres
 
 Thank you for taking the time to complete this exercise.
