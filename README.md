@@ -194,12 +194,15 @@ Reference:
 
 ## Your Notes (README.md)
 
-Use the sections below to document your work.
-
 ### Time Spent
 
-Approximate total time spent on the exercise.
+Approximate total time spent on the exercise: 4-5 hours including setup.
+
 Include any learning or research time if applicable.
+
+Previous learning (back in December): 
+  -LinkedIn Learning
+    -Apache Airflow training
 
 ---
 
@@ -213,6 +216,20 @@ List any assumptions you made and how they influenced your design choices.
 
 Describe key decisions you made and alternatives you considered.
 
+Available Parameters influenced the design of the system: 
+
+Required:
+  -lat
+  -lon
+  -appid
+
+Optional:
+  -mode: Kept as default (JSON) due to ease of working with it on python thanks to the libraries.
+  -units: kept as default but can easily be maintained changed from configuration.
+  -lang: kept as default but can easily be maintained changed from configuration.
+
+(https://openweathermap.org/current?collection=current_forecast&collection=current_forecast&collection=current_forecast#geo)
+
 ---
 
 ### Next Steps / Improvements
@@ -225,6 +242,8 @@ Examples:
 - Testing strategy
 - Observability / monitoring
 - Performance optimizations
+
+Implement multiprocessing of cities by divinding the cities pool. This would benefit in the case of a large number of cities being analyzed.
 
 ---
 
