@@ -49,7 +49,7 @@ with DAG(
 
                 ingested_at              TIMESTAMPTZ NOT NULL DEFAULT now(),
 
-                CONSTRAINT pk_current_weather PRIMARY KEY (provider, provider_city_id, observation_time_utc)
+                CONSTRAINT pk_current_weather PRIMARY KEY (provider, coord_lat, coord_lon, observation_time_utc)
         );
     """,
     )
