@@ -213,6 +213,8 @@ Useful sources:
   
   PostgreSQL composite primary key for idempotency: (https://www.dbpilot.io/sql-guides/postgresql/composite-primary-keys-in-postgresql)
 
+  Use of TIMESTAMPTZ type on PostgreSQL: https://www.postgresql.org/docs/current/datatype-datetime.html, https://www.slingacademy.com/article/timestamp-and-timestamptz-data-types-in-postgresql-explained-by-examples/
+
 ---
 
 ### Assumptions

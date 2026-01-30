@@ -10,31 +10,32 @@ from airflow.models import Variable
 from typing import List, Dict, Optional
 from datetime import datetime, timezone
 
+#Based on https://www.geodatos.net/
 CITIES: List[Dict] = [
     {
         "name": "San José",
         "country": "CR",
-        "lat": 9.9281,
-        "lon": -84.0907,
+        "lat": 9.93388,
+        "lon": -84.08489,
     },
     {
         "name": "Ann Arbor",
         "country": "US-MI",
-        "lat": 42.2808,
-        "lon": -83.7430,
+        "lat": 42.27756,
+        "lon": -83.74088,
     },
     {
         "name": "Tokyo",
         "country": "JP",
-        "lat": 35.6762,
-        "lon": 139.6503,
+        "lat": 35.6895,
+        "lon": 139.69171,
     },
 
     {
         "name": "York",
         "country": "GB",
-        "lat": 53.959965,
-        "lon": -1.087298,
+        "lat": 53.95763,
+        "lon": -1.08271,
     }
 ]
 
