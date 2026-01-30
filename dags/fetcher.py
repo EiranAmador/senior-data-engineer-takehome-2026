@@ -89,7 +89,6 @@ with DAG(
                 or None
             ),
 
-            # Solar (if available)
             "sunrise_time_utc": sunrise_utc,
             "sunset_time_utc": sunset_utc,
 
